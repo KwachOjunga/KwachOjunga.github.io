@@ -6,10 +6,12 @@ export default function About() {
                     About Me
                 </h2>
                 <p className="text-xl text-secondary max-w-2xl mx-auto">
-                    A Medical Engineering student with a background in medical
+                    A passionate software engineer with a background in medical
                     image classification using deep learning&apos;s U-net
                     architectures and a solid foundation in low level system
-                    design focusing on the hadware/software interface.
+                    design focusing on the hardware/software interface while
+                    pursuing a degree in Medical Engineering at Technical
+                    University of Mombasa.
                 </p>
             </div>
 
@@ -46,35 +48,11 @@ export default function About() {
                             a focus on Machine Learning Systems.
                         </p>
                     </div>
-
-                    {/*<div>
-                        <h3 className="text-xl font-semibold mb-3">
-                            Entrepreneurship
-                        </h3>
-                        <p className="text-secondary leading-relaxed">
-                            Co-founder of Seede XR, a boutique design studio
-                            specializing in AR/VR, 3D design, and AI-generated
-                            art. We create immersive experiences and solve
-                            African socio-economic problems through technology.
-                        </p>
-                    </div>*/}
-
-                    {/*<div>
-                        <h3 className="text-xl font-semibold mb-3">
-                            Consulting
-                        </h3>
-                        <p className="text-secondary leading-relaxed">
-                            I provide consulting services in software
-                            development and DevSecOps, helping organizations
-                            implement secure, scalable solutions with modern
-                            technologies and best practices.
-                        </p>
-                    </div>*/}
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
                     <div className="text-center p-4">
-                        <div className="text-amber-400 text-3xl font-bold mb-2">
+                        <div className="text-amber-400 text-4xl font-bold mb-2">
                             3+
                         </div>
                         <div className="text-amber-400 text-sm">
