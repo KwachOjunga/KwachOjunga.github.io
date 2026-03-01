@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  --color-background: rgba(254, 254, 254, 0.44);
+  --color-foreground: #1a1a1a;
+  --color-primary: #059669;
+  --color-secondary: #6b7280;
+}
+
+.dark {
+  --color-background: rgba(12, 12, 12, 0.45);
+  --color-foreground: #e5e5e5;
+  --color-primary: #10b981;
+  --color-secondary: #9ca3af;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  scroll-behavior: smooth;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-effect {
+  background: var(--color-background);
+  backdrop-filter: blur(8px);
+}
+
+
+/* Text colors */
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+/* Background colors */
+.bg-background {
+  background-color: var(--color-background);
+}
+
+/* Animation keyframes */
+@keyframes gradient-xy {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-gradient-xy {
+  background: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+  background-size: 400% 400%;
+  animation: gradient-xy 15s ease infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animation-delay-2s {
+  animation-delay: 2s;
+}
+
+.animation-delay-4s {
+  animation-delay: 4s;
+}
+
+.animation-delay-6s {
+  animation-delay: 6s;
+}
