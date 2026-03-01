@@ -53,7 +53,7 @@ export default function Hero() {
 
                         <Image
                             src="https://github-readme-stats.vercel.app/api?username=KwachOjunga&theme=dark&hide_border=false&include_all_commits=false&count_private=false"
-                            alt="KwacgOjunga's GitHub Stats"
+                            alt="KwachOjunga's GitHub Stats"
                             width={495}
                             height={195}
                             className="rounded-lg shadow-lg"
@@ -61,7 +61,7 @@ export default function Hero() {
 
                         <Image
                             src="https://nirzak-streak-stats.vercel.app/?user=KwachOjunga&theme=dark&hide_border=false"
-                            alt="KwacgOjunga's Contribution Streak"
+                            alt="KwachOjunga's Contribution Streak"
                             width={495}
                             height={195}
                             className="rounded-lg shadow-lg"
@@ -72,7 +72,7 @@ export default function Hero() {
                             src="https://github-contributor-stats.vercel.app/api?username=KwachOjunga&limit=5&theme=dark&combine_all_yearly_contributions=true"
                             width={495}
                             height={195}
-                            alt="KwacgOjunga's Top Languages"
+                            alt="KwachOjunga's Top Languages"
                             className="rounded-lg shadow-lg"
                         />*/}
                     </div>

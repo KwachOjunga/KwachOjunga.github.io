@@ -65,7 +65,7 @@ export default function Skills() {
                     src="https://github-contributor-stats.vercel.app/api?username=KwachOjunga&limit=5&theme=dark&combine_all_yearly_contributions=true"
                     width={495}
                     height={195}
-                    alt="KwacgOjunga's Contributor's Stats"
+                    alt="KwachOjunga's Contributor's Stats"
                     className="rounded-lg shadow-lg"
                 />
             </div>
