@@ -50,14 +50,14 @@ export default function Hero() {
                         <h3 className="text-2xl font-bold text-center">
                             My GitHub Activity
                         </h3>
-
-                        <Image
+                        <br />
+                        {/*<Image
                             src="https://github-readme-stats.vercel.app/api?username=KwachOjunga&theme=dark&hide_border=false&include_all_commits=false&count_private=false"
                             alt="KwachOjunga's GitHub Stats"
                             width={495}
                             height={195}
                             className="rounded-lg shadow-lg"
-                        />
+                        />*/}
 
                         <Image
                             src="https://nirzak-streak-stats.vercel.app/?user=KwachOjunga&theme=dark&hide_border=false"

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
+import { Viewport } from "next";
 
 const inter = Inter({
     variable: "--font-inter",
@@ -19,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
     title: "Reginald Ojunga | Compiler Engineer",
     description:
-        "Professional portfolio of Reginald Ojunga - Medical Engineering practitioner, compiler engineer and budding chip architect.",
+        "Professional portfolio of Reginald Ojunga - Software Engineering practitioner, compiler engineer and budding chip architect.",
     // icons: {
     //     icon: [
     //         { url: "/favicon.svg", type: "image/svg+xml" },
@@ -27,6 +28,11 @@ export const metadata: Metadata = {
     //     ],
     //     apple: "/favicon.svg",
     // },
+};
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
 };
 
 export default function RootLayout({
