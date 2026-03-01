@@ -19,13 +19,31 @@ export default function About() {
                         <h3 className="text-xl font-semibold mb-3">
                             Background
                         </h3>
+                        <p>-</p>
                         <p className="text-secondary leading-relaxed">
-                            I am currently in my fifth year of Medical
-                            Engineering at Technical University of Mombasa. My
-                            skillset encompasses deep learning architectures and
+                            I am a fifth year student of Medical Engineering at
+                            Technical University of Mombasa. My skillset
+                            encompasses deep learning architectures and
                             compilers, compiler design targeting modern
                             architectures with given parrallelism, circuit
                             analysis and embedded systems.
+                        </p>
+                        -
+                        <br />
+                        <p className="text-secondary leading-relaxed">
+                            I am currently at{" "}
+                            <a
+                                className="text-blue-600 hover:text-yellow-
+                                00 hover:no-underline transition-colors"
+                                href="https://www.zone01kisumu.ke"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Zone01 Kisumu
+                            </a>
+                            <text> </text>
+                            where I&apos;m a Software Developer Apprentice with
+                            a focus on Machine Learning Systems.
                         </p>
                     </div>
 
