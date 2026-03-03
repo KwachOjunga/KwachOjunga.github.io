@@ -6,7 +6,7 @@ export default function About() {
                     About Me
                 </h2>
                 <p className="text-xl text-secondary max-w-2xl mx-auto">
-                    A passionate software engineer with a background in medical
+                    A passionate systems engineer with a background in medical
                     image classification using deep learning&apos;s U-net
                     architectures and a solid foundation in low level system
                     design focusing on the hardware/software interface while
@@ -53,7 +53,7 @@ export default function About() {
                 <div className="grid grid-cols-2 gap-6">
                     <div className="text-center p-4">
                         <div className="text-amber-400 text-4xl font-bold mb-2">
-                            3+
+                            2+
                         </div>
                         <div className="text-amber-400 text-sm">
                             Years Experience
