@@ -10,8 +10,7 @@ export default function About() {
                     image classification using deep learning&apos;s U-net
                     architectures and a solid foundation in low level system
                     design focusing on the hardware/software interface while
-                    pursuing a degree in Medical Engineering at Technical
-                    University of Mombasa.
+                    pursuing a degree in Medical Engineering.
                 </p>
             </div>
 

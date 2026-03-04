@@ -23,7 +23,7 @@ export default function Hero() {
                         <span>Electronics</span>
                         <span>•</span>
                         <span className="text-cyan-500 font-medium">
-                            Learning Processor and Compier Design
+                            Learning Processor and Compier design
                         </span>
                     </div>
                 </div>
