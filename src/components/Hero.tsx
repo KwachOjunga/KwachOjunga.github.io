@@ -64,9 +64,9 @@ export default function Hero() {
 
                 <div className="flex flex-col items-center gap-6 my-8">
                     <div className="">
-                        <h3 className="text-2xl font-bold text-center">
+                        {/*<h3 className="text-2xl font-bold text-center">
                             My GitHub Activity
-                        </h3>
+                        </h3>*/}
                         <br />
                         {/*<Image
                             src="https://github-readme-stats.vercel.app/api?username=KwachOjunga&theme=dark&hide_border=false&include_all_commits=false&count_private=false"
@@ -76,13 +76,13 @@ export default function Hero() {
                             className="rounded-lg shadow-lg"
                         />*/}
 
-                        <Image
+                        {/*<Image
                             src="https://nirzak-streak-stats.vercel.app/?user=KwachOjunga&theme=dark&hide_border=false"
                             alt="KwachOjunga's Contribution Streak"
                             width={495}
                             height={195}
                             className="rounded-lg shadow-lg"
-                        />
+                        />*/}
 
                         {/*<Image
                             // src="https://github-readme-stats.vercel.app/api/top-langs/?username=KwachOjunga&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact"

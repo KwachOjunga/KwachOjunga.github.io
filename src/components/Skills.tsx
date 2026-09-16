@@ -59,7 +59,7 @@ export default function Skills() {
             </div>
             <br />
             <br />
-            <div>
+            {/*<div>
                 <Image
                     // src="https://github-readme-stats.vercel.app/api/top-langs/?username=KwachOjunga&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact"
                     src="https://github-contributor-stats.vercel.app/api?username=KwachOjunga&limit=5&theme=dark&combine_all_yearly_contributions=true"
@@ -68,7 +68,7 @@ export default function Skills() {
                     alt="KwachOjunga's Contributor's Stats"
                     className="rounded-lg shadow-lg"
                 />
-            </div>
+            </div>*/}
         </section>
     );
 }
