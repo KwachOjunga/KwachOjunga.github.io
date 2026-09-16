@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Header from "@/components/Header";
 import "./globals.css";
 import { Viewport } from "next";
 
@@ -45,7 +46,10 @@ export default function RootLayout({
             <body
                 className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
             >
-                <ThemeProvider>{children}</ThemeProvider>
+                <ThemeProvider>
+                    <Header />
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );

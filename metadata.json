@@ -1,0 +1,8 @@
+{
+  "name": "Reginald Ojunga Portfolio",
+  "description": "Professional portfolio of Reginald Ojunga - Software Engineering practitioner, compiler engineer and budding chip architect.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

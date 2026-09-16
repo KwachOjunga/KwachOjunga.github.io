@@ -1,10 +1,23 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
     return (
         <section className="min-h-[70vh] flex items-center justify-center pt-20">
             <div className="text-center px-4 max-w-2xl mx-auto">
                 <div className="mb-8">
+                    <div className="flex justify-center mb-6">
+                        <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden ring-4 ring-emerald-500/20 dark:ring-emerald-400/20 shadow-xl transition-transform duration-300 hover:scale-105">
+                            <Image
+                                src="/avatar.jpg"
+                                alt="Reginald Ojunga"
+                                fill
+                                sizes="(max-width: 640px) 128px, 144px"
+                                className="object-cover"
+                                priority
+                            />
+                        </div>
+                    </div>
                     <h3 className="text-2xl sm:text-4xl md:text-5xl font-semibold mb-4 tracking-tight">
                         Reginald Ojunga
                     </h3>
@@ -22,24 +35,28 @@ export default function Hero() {
                         <span>•</span>
                         <span>Electronics</span>
                         <span>•</span>
-                        <span className="text-cyan-500 font-medium">
-                            Learning Processor and Compier design
+                        <span className="text-yellow-600 dark:text-yellow-400 font-medium">
+                            Learning Processor and Compiler design
                         </span>
                     </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    {/*<a
-                        href="#projects"
-                        className="px-8 py-3 text-white rounded hover:opacity-90 transition-all duration-200"
-                        style={{ backgroundColor: "var(--color-primary)" }}
+                <div className="flex flex-wrap gap-3 justify-center items-center">
+                    <Link
+                        href="/projects"
+                        className="px-6 py-2.5 bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-semibold text-sm rounded-lg transition-all duration-200 shadow-sm active:scale-[0.98]"
                     >
-                        View My Work
-                    </a>*/}
+                        Explore Projects
+                    </Link>
+                    <Link
+                        href="/blog"
+                        className="px-6 py-2.5 border border-yellow-500/80 dark:border-yellow-400/70 text-yellow-700 dark:text-yellow-400 text-sm font-semibold rounded-lg transition-all duration-200 hover:bg-yellow-400/10 active:scale-[0.98]"
+                    >
+                        Read Blog
+                    </Link>
                     <a
                         href="#contact"
-                        className="px-8 py-3 border text-secondary rounded transition-all duration-200 hover:opacity-90"
-                        style={{ borderColor: "var(--color-secondary)" }}
+                        className="px-6 py-2.5 border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 text-sm font-medium rounded-lg transition-all duration-200 hover:border-yellow-500 hover:text-neutral-900 dark:hover:text-neutral-100"
                     >
                         Get In Touch
                     </a>

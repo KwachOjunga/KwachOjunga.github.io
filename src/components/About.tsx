@@ -34,15 +34,13 @@ export default function About() {
                         <p className="text-secondary leading-relaxed">
                             I am currently at{" "}
                             <a
-                                className="text-blue-600 hover:text-yellow-
-                                00 hover:no-underline transition-colors"
+                                className="text-blue-600 hover:text-yellow-500 hover:no-underline transition-colors font-medium"
                                 href="https://www.zone01kisumu.ke"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
                                 Zone01 Kisumu
-                            </a>
-                            <text> </text>
+                            </a>{" "}
                             where I&apos;m a Software Developer Apprentice with
                             a focus on Machine Learning Systems.
                         </p>

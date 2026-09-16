@@ -1,0 +1,95 @@
+---
+title: "Building an LLVM-based Toy Compiler in Rust"
+date: "2024-03-20"
+description: "A step-by-step architectural breakdown of building an AST, semantic analyzer, and LLVM IR code generator in Rust for a C-like toy language."
+tags: ["Compilers", "Rust", "LLVM", "Systems"]
+author: "Reginald Ojunga"
+---
+
+# Building an LLVM-based Toy Compiler in Rust
+
+Writing a compiler from scratch gives you a deep, visceral understanding of what CPU instructions actually execute when high-level code runs. In this article, I want to walk through the architectural phases of constructing a modern compiler backend using LLVM and Rust.
+
+## Pipeline Architecture
+
+Every production-grade compiler pipeline decomposes the translation process into three fundamental stages:
+
+1. **Frontend**: Lexical analysis (tokenization) and parsing into an Abstract Syntax Tree (AST).
+2. **Middle-end**: Type validation, symbol resolution, and high-level intermediate representation (IR) optimizations.
+3. **Backend**: Lowering the AST into LLVM IR, running SSA optimization passes, and generating machine code for specific architectures (x86_64, AArch64, RISC-V).
+
+## Step 1: Lexing and Recursive Descent
+
+Rust's pattern matching makes writing parser combinators or recursive descent parsers enjoyable and safe. We define our tokens using an enum:
+
+```rust
+#[derive(Debug, PartialEq, Clone)]
+pub enum Token {
+    KeywordFn,
+    KeywordLet,
+    Identifier(String),
+    Number(i64),
+    Plus,
+    Minus,
+    Asterisk,
+    Slash,
+    Equal,
+    Semicolon,
+}
+```
+
+With clean token definitions, we parse statements into strongly typed AST nodes:
+
+```rust
+pub enum Expr {
+    Literal(i64),
+    Variable(String),
+    BinaryOp {
+        op: BinaryOp,
+        left: Box<Expr>,
+        right: Box<Expr>,
+    },
+    Call {
+        callee: String,
+        args: Vec<Expr>,
+    },
+}
+```
+
+## Step 2: Emitting LLVM IR
+
+Using the `inkwell` crate (safe Rust wrappers for LLVM), we can initialize an LLVM Context, Module, and IRBuilder:
+
+```rust
+use inkwell::context::Context;
+use inkwell::builder::Builder;
+use inkwell::module::Module;
+
+pub struct CodeGen<'ctx> {
+    pub context: &'ctx Context,
+    pub module: Module<'ctx>,
+    pub builder: Builder<'ctx>,
+}
+```
+
+When visiting a binary addition expression, lowering is straightforward:
+
+```rust
+let lhs_val = self.compile_expr(left)?;
+let rhs_val = self.compile_expr(right)?;
+let sum = self.builder.build_int_add(lhs_val.into_int_value(), rhs_val.into_int_value(), "addtmp")?;
+```
+
+## Step 3: Architecture-Specific Code Generation
+
+Because LLVM abstracts away machine architecture details while providing target machines, target triples like `riscv64gc-unknown-linux-gnu` or `x86_64-unknown-linux-gnu` allow our frontend to produce optimized native assembly with zero target-specific rewrite:
+
+```bash
+llc -O3 -march=riscv64 -mattr=+m,+a,+f,+d input.ll -o output.s
+```
+
+## Key Takeaways
+
+- Clear separation between AST representation and code emission keeps the codebase maintainable.
+- LLVM's SSA form handles dead-code elimination, loop unrolling, and register allocation automatically.
+- Writing your own compiler is the best way to master low-level computing principles.

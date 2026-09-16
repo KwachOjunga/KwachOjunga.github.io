@@ -1,0 +1,67 @@
+---
+title: "Understanding RISC-V 5-Stage Pipeline Hazards and Forwarding"
+date: "2024-02-28"
+description: "An analysis of structural, data, and control hazards in standard RISC-V 5-stage CPU pipelines and how operand forwarding mitigates stalls."
+tags: ["RISC-V", "Computer Architecture", "Hardware", "Systems"]
+author: "Reginald Ojunga"
+---
+
+# Understanding RISC-V 5-Stage Pipeline Hazards and Forwarding
+
+Instruction pipelining is the fundamental technique used in modern microprocessors to execute multiple instructions concurrently. In this post, we explore the classic 5-stage RISC-V pipeline: Instruction Fetch (IF), Instruction Decode (ID), Execute (EX), Memory Access (MEM), and Write Back (WB).
+
+## The 5-Stage In-Order Pipeline
+
+```
+[ IF ] --> [ ID ] --> [ EX ] --> [ MEM ] --> [ WB ]
+```
+
+1. **IF (Instruction Fetch)**: Fetches the 32-bit instruction from memory at the current PC.
+2. **ID (Instruction Decode / Register Read)**: Decodes opcode, reads source registers (rs1, rs2).
+3. **EX (Execute / ALU)**: Computes arithmetic results or branch target address.
+4. **MEM (Memory Access)**: Reads from or writes to data cache for load/store instructions.
+5. **WB (Write Back)**: Writes the result back to destination register (rd).
+
+## The Data Hazard Problem
+
+Consider this sequence of instructions:
+
+```assembly
+add x1, x2, x3   # x1 written back in Stage 5 (WB)
+sub x4, x1, x5   # x1 read in Stage 2 (ID)
+```
+
+Without hazard mitigation, the `sub` instruction would read the stale value of `x1` because `add` has only completed its `EX` stage when `sub` needs the value in `ID`.
+
+## Solution: Operand Forwarding (Bypassing)
+
+Instead of stalling the pipeline for two full cycles, we can route the calculated ALU result directly from the output of the EX/MEM pipeline register back to the ALU input multiplexer in the EX stage:
+
+```verilog
+// Forwarding Unit Logic Snippet
+always @(*) begin
+    // Forward from EX/MEM stage
+    if (reg_write_mem && (rd_mem != 0) && (rd_mem == rs1_ex))
+        forward_a = 2'b10;
+    // Forward from MEM/WB stage
+    else if (reg_write_wb && (rd_wb != 0) && (rd_wb == rs1_ex))
+        forward_a = 2'b01;
+    else
+        forward_a = 2'b00;
+end
+```
+
+## Load-Use Hazard
+
+When a load instruction is immediately followed by an instruction that depends on the loaded value:
+
+```assembly
+lw  x1, 0(x2)    # Data is not available until end of MEM stage!
+add x3, x1, x4   # Needs data in EX stage
+```
+
+Here, forwarding alone is not enough because the data is only ready at the end of the MEM stage. The pipeline must insert **one stall cycle (bubble)**, after which forwarding can supply the value from MEM/WB into the EX stage.
+
+## Conclusion
+
+Understanding hazard detection and forwarding mechanics provides the foundation for designing custom RISC-V cores and building hardware-aware compilers that schedule instructions to avoid load-use bubbles.
