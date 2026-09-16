@@ -91,13 +91,13 @@ Wrap up with takeaways.
         </div>
 
         {/* Action Button: How to Add Blog Posts */}
-        <button
+        {/*<button
           onClick={() => setShowAddModal(true)}
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-neutral-950 font-semibold text-xs shadow-sm transition-all active:scale-[0.98] shrink-0 self-start sm:self-auto"
         >
           <PlusCircle className="w-4 h-4" />
           <span>How to Add a Post</span>
-        </button>
+        </button>*/}
       </div>
 
       {/* Search and Filters */}
