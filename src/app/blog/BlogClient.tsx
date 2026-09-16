@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { BlogPost } from '@/lib/blog';
-import { Search, Calendar, Clock, PlusCircle, Copy, Check, BookOpen, ArrowRight, X, FileCode } from 'lucide-react';
+import { Search, Calendar, Clock,  Copy, Check, BookOpen, ArrowRight, X, FileCode } from 'lucide-react';
 
 interface BlogClientProps {
   initialPosts: BlogPost[];
