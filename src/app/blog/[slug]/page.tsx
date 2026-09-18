@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import Markdown from 'react-markdown';
+import MDXRenderer from '@/components/MDXRenderer';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
 import ShareButton from './ShareButton';
@@ -98,10 +98,8 @@ export default async function BlogPostPage({ params }: PageProps) {
       </header>
 
       {/* Article Content */}
-      <article className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed prose-headings:font-bold prose-headings:tracking-tight prose-a:text-amber-600 dark:prose-a:text-yellow-400 prose-pre:bg-neutral-900 prose-pre:text-neutral-100 prose-pre:rounded-xl prose-pre:border prose-pre:border-neutral-800">
-        <div>
-          <Markdown>{post.content}</Markdown>
-        </div>
+      <article className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed prose-headings:font-bold prose-headings:tracking-tight prose-a:text-amber-600 dark:prose-a:text-yellow-400">
+        <MDXRenderer content={post.content} />
       </article>
 
       {/* Article Footer */}

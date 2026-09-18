@@ -114,6 +114,71 @@ body {
   font-size: 0.875rem;
   line-height: 1.6;
 }
+
+/* Prism syntax highlighting styles */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #71717a;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #9ca3af;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #fbbf24;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #34d399;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+  color: #38bdf8;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #c084fc;
+  font-weight: 600;
+}
+
+.token.function,
+.token.class-name {
+  color: #60a5fa;
+}
+
+.token.variable,
+.token.regex,
+.token.important {
+  color: #fb923c;
+}
+
+/* Mermaid SVG styling adjustments */
+.mdx-content svg {
+  overflow: auto;
+}
+
+.mdx-content .mermaid_label {
+  font-family: inherit;
+}
 .prose blockquote {
   border-left: 3px solid var(--color-primary);
   padding-left: 1rem;
