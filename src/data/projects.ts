@@ -5,17 +5,17 @@ export interface Project {
   link: string;
   github?: string;
   featured: boolean;
-  category: "Systems & Compilers" | "Fullstack & Web" | "DevOps & Cloud" | "Embedded & Hardware";
+  category: "Systems & Compilers" | "Fullstack & Web" | "DevOps & Cloud" | "Embedded & Hardware" | "CLI & Tools";
   date?: string;
 }
 
 export const projects: Project[] = [
   {
-    title: "pliron-hw",
-    description: "Hardware dialect ecosystem for pliron, retaining parity with LLVM CIRCT / MLIR hardware IR. Implements hw (structural netlists and modules), comb (combinational logic), seq (clocked state and registers), and sv (SystemVerilog emission) dialects in Rust.",
+    title: "pliron-circt",
+    description: "Dialect ecosystem for pliron, retaining parity with LLVM CIRCT / MLIR hardware IR. Implements hw (structural netlists and modules), comb (combinational logic), seq (clocked state and registers), and sv (SystemVerilog emission) dialects in Rust.",
     tech: ["Rust", "CIRCT", "MLIR", "Hardware IR", "SystemVerilog", "Compiler Design"],
-    link: "https://github.com/KwachOjunga/pliron-hw",
-    github: "https://github.com/KwachOjunga/pliron-hw",
+    link: "https://github.com/KwachOjunga/pliron-circt",
+    github: "https://github.com/KwachOjunga/pliron-circt",
     featured: true,
     category: "Systems & Compilers",
     date: "2026"
@@ -36,7 +36,7 @@ export const projects: Project[] = [
     tech: ["AI Systems", "Mesh Networks", "Distributed Systems", "IoT", "Anticipatory Action"],
     link: "https://github.com/KwachOjunga/kinga",
     github: "https://github.com/KwachOjunga/kinga",
-    featured: true,
+    featured: false,
     category: "Fullstack & Web",
     date: "2026"
   },
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     tech: ["SystemVerilog", "RISC-V", "Digital Design", "FPGA", "Hardware Architecture"],
     link: "https://github.com/KwachOjunga/HaDes-V",
     github: "https://github.com/KwachOjunga/HaDes-V",
-    featured: true,
+    featured: false,
     category: "Embedded & Hardware",
     date: "2026"
   },
@@ -86,8 +86,8 @@ export const projects: Project[] = [
     tech: ["Rust", "Binary Analysis", "ELF", "CLI", "Systems Programming"],
     link: "https://github.com/KwachOjunga/peek",
     github: "https://github.com/KwachOjunga/peek",
-    featured: false,
-    category: "Systems & Compilers",
+    featured: true,
+    category: "CLI & Tools",
     date: "2026"
   },
   {
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     tech: ["Python", "RISC-V", "ISA Specification", "Automated Parsing"],
     link: "https://github.com/KwachOjunga/map_riscv",
     github: "https://github.com/KwachOjunga/map_riscv",
-    featured: false,
+    featured: true,
     category: "Systems & Compilers",
     date: "2026"
   },
