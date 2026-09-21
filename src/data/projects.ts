@@ -12,7 +12,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: "pliron-circt",
-    description: "Dialect ecosystem for pliron, retaining parity with LLVM CIRCT / MLIR hardware IR. Implements hw (structural netlists and modules), comb (combinational logic), seq (clocked state and registers), and sv (SystemVerilog emission) dialects in Rust.",
+    description: "An MLIR-based compiler infrastructure spanning multiple abstraction levels of hardware representation, transformation, and RTL generation. Implements hw (structural netlists and modules), comb (combinational logic), seq (clocked state and registers), and sv (SystemVerilog emission) dialects in Rust.",
     tech: ["Rust", "CIRCT", "MLIR", "Hardware IR", "SystemVerilog", "Compiler Design"],
     link: "https://github.com/KwachOjunga/pliron-circt",
     github: "https://github.com/KwachOjunga/pliron-circt",

@@ -1,0 +1,67 @@
+---
+title: "On Designing Silicon"
+date: "2026-09-21"
+description: "What the path to designing silicon looks like - at least part of it"
+tags: ["Hardware"]
+author: "Reginald Ojunga"
+---
+
+Lately i have been involved in designing a software package that
+is concerned with enabling the description of hardware designs in 
+Rust. It falls under the category of compiler infrastructure that is supposed 
+to be used by high level synthesis tools or hardware description languages 
+to realise the final netlist.
+
+I'll elaborate.
+The distinction between HLS tools and HDLs is abit fuzzy and frankly 
+i there is huge overlap between the two.
+
+A high level synthesis tool is a compiler that transforms high-level
+algorithmic descriptions into synthesizable hardware implementations.
+An example of this is Cadence's Stratus HLS tool or AMD's Vitis.
+These take in a subset of C/C++ and generate RTL (Register Transfer Level) 
+netlists that can be simulated or synthesized into hardware.
+
+A hardware description language (HDL) is a language used to describe the 
+structure and behavior of digital circuits. Some primary examples are 
+Verilog and VHDL.
+
+Finally, the netlist is the output of the synthesis process, 
+a textual or graphical representation of the hardware design.
+It describes the hardware as a collection of components and the connections 
+between them.
+
+---
+title: "On Designing Silicon"
+date: "2026-09-21"
+description: "What the path to designing silicon looks like - at least part of it"
+tags: ["Hardware"]
+author: "Reginald Ojunga"
+---
+
+Lately i have been involved in designing a software package that
+is concerned with enabling the description of hardware designs in 
+Rust. It falls under the category of compiler infrastructure that is supposed 
+to be used by high level synthesis tools or hardware description languages 
+to realise the final netlist.
+
+I'll elaborate.
+The distinction between HLS tools and HDLs is abit fuzzy and frankly 
+i there is huge overlap between the two.
+
+A high level synthesis tool is a compiler that transforms high-level
+algorithmic descriptions into synthesizable hardware implementations.
+An example of this is Cadence's Stratus HLS tool or AMD's Vitis.
+These take in a subset of C/C++ and generate RTL (Register Transfer Level) 
+netlists that can be simulated or synthesized into hardware.
+
+A hardware description language (HDL) is a language used to describe the 
+structure and behavior of digital circuits. Some primary examples are 
+Verilog and VHDL.
+
+Finally, the netlist is the output of the synthesis process, 
+a textual or graphical representation of the hardware design.
+It describes the hardware as a collection of components and the connections 
+between them.
+
+TODO: Describe the work in pliron-circt
