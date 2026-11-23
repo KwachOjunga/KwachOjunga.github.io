@@ -1,10 +1,11 @@
-import { Metadata } from 'next';
-import ProjectsClient from './ProjectsClient';
-import { projects } from '@/data/projects';
+import { Metadata } from "next";
+import ProjectsClient from "./ProjectsClient";
+import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
-  title: 'Projects | Reginald Ojunga',
-  description: 'A curated showcase of engineering projects spanning systems programming, compilers, full-stack web platforms, and DevOps infrastructure.',
+  title: "Projects | Reginald Ojunga",
+  description:
+    "A curated showcase of engineering projects spanning systems programming, compilers, full-stack web platforms, and DevOps infrastructure.",
 };
 
 export default function ProjectsPage() {

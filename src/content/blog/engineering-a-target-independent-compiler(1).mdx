@@ -10,12 +10,11 @@ NOTE: This series follows the inside LLVM series i began my dev.to account.
 I intend to complete the rest of it that covers the definition of the machine
 independent representation here.
 
-
 ## 1. The Question
 
 Imagine it is the late 1990s. You form part of a team that has built a successful compiler for a
 single programming language targeting a single processor architecture. The system is well
-understood, the optimizer is producing good code, and the backend reliably emits binaries 
+understood, the optimizer is producing good code, and the backend reliably emits binaries
 for your target machine.
 
 Then the requirements change.
@@ -26,15 +25,14 @@ systems, and an ever-growing range of processor families.
 
 You get in the business of supporting infrastructure.
 
-At this point, the problem is no longer writing a **compiler**. The problem is maintaining **an ecosystem of compilers** 
+At this point, the problem is no longer writing a **compiler**. The problem is maintaining **an ecosystem of compilers**
 that all need the same optimizations, the same bug fixes, and the same engineering improvements.
 
-**Is it possible to have a compiler infrastructure that supports dozens of programming languages and dozens of processor architectures? 
+**Is it possible to have a compiler infrastructure that supports dozens of programming languages and dozens of processor architectures?
 How will it tame such complexity?**
 
-
 Before we examine any data structure, optimization pass, or backend interface, it makes sense to understand the engineering
-problem that forced LLVM into existence. 
+problem that forced LLVM into existence.
 Modern LLVM is best understood as a response to a scaling problem that
 traditional compiler architectures could not solve.
 
@@ -49,7 +47,6 @@ is built specifically for that single combination, allowing the implementation t
 The difficulties begin when either side of the pipeline grows.
 Suppose we wish to support five programming languages targeting three processor architectures.
 
-
 ```text
                 
 Languages                  
@@ -63,21 +60,19 @@ Languages
 ```
 
 Without a shared infrastructure, every combination requires its own compilation pipeline.
-If more languages and architectures are added, the amount of duplicated engineering effort 
+If more languages and architectures are added, the amount of duplicated engineering effort
 grows rapidly.
 
 This phenomenon is commonly known as the **N × M problem**.
 
-The difficulty extends far beyond parsing source code or generating machine instructions. 
+The difficulty extends far beyond parsing source code or generating machine instructions.
 Every compiler benefits from sophisticated analyses and optimizations: dead code elimination,
 loop optimizations, common subexpression elimination, function inlining, register allocation,
 instruction scheduling, and many others.
 
-In a traditional architecture, improvements to these algorithms often had to be implemented repeatedly 
+In a traditional architecture, improvements to these algorithms often had to be implemented repeatedly
 across multiple compiler implementations. The same optimization might exist in several slightly different
 forms, each evolving independently, each accumulating its own bugs and maintenance costs.
-
-
 
 The traditional architecture therefore suffered from two fundamental scaling problems:
 
@@ -161,18 +156,18 @@ LLVM's architecture is reflected directly in the structure of the project itself
 
 At the top level of the repository are independent components rather than a single "compiler" directory.
 
-* `llvm/` — the reusable core libraries, including LLVM IR, analyses, transformations, code generation, target descriptions,
-*  the MC layer, and TableGen.
-* `clang/` — one frontend among many.
-* `lld/` — the linker.
-* `compiler-rt/` — runtime support libraries required by generated programs.
-* `libcxx/`, `libcxxabi/`, and related projects — the C++ standard library implementation and supporting runtime components.
+- `llvm/` — the reusable core libraries, including LLVM IR, analyses, transformations, code generation, target descriptions,
+- the MC layer, and TableGen.
+- `clang/` — one frontend among many.
+- `lld/` — the linker.
+- `compiler-rt/` — runtime support libraries required by generated programs.
+- `libcxx/`, `libcxxabi/`, and related projects — the C++ standard library implementation and supporting runtime components.
 
 This organization reflects LLVM's philosophy.
 The optimizer is not owned by Clang.
 The backend is not owned by Clang.
 The IR is not owned by Clang.
-Instead, Clang is itself a client of LLVM's libraries, just as a JIT compiler, a static compiler, a binary translator, 
+Instead, Clang is itself a client of LLVM's libraries, just as a JIT compiler, a static compiler, a binary translator,
 or a research tool can be.
 
 The pipeline shown earlier therefore represents more than compilation stages.
@@ -247,11 +242,11 @@ They are examples of a recurring engineering principle that appears throughout L
 
 The top-level structure of the LLVM project already reveals its architectural philosophy.
 
-* `llvm/` — reusable compiler infrastructure.
-* `clang/` — one frontend built on that infrastructure.
-* `lld/` — the linker.
-* `compiler-rt/` — runtime libraries.
-* `libcxx/` and related projects — standard library components.
+- `llvm/` — reusable compiler infrastructure.
+- `clang/` — one frontend built on that infrastructure.
+- `lld/` — the linker.
+- `compiler-rt/` — runtime libraries.
+- `libcxx/` and related projects — standard library components.
 
 Notice what is absent.
 
@@ -291,6 +286,6 @@ In Part 2, we will examine why abstract syntax trees are insufficient, why raw a
 >
 > The traditional monolithic compiler could not solve the **N × M scaling problem**. LLVM's first abstraction—treating the compiler as a collection of reusable libraries—was introduced to solve exactly that problem. Every subsequent layer in the series will reveal another engineering challenge, another abstraction, and another carefully chosen boundary.
 
-
 [^1]: Joran Dirk Greef [may disagree with me on this](https://www.youtube.com/watch?v=yKgfk8lTQuE&t=2793s&pp=ygUZdGhlIHBvd2VyIG9mIGFuIGludGVyZmFjZQ%3D%3D).
+
 [^2]: One thing that is observable in hardware/sotware interface, any time one encounters a relatively radical idea, chances are a new functional unit is involved.

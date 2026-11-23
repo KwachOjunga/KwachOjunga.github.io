@@ -1,10 +1,10 @@
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import { Metadata } from 'next';
-import MDXRenderer from '@/components/MDXRenderer';
-import { getAllPosts, getPostBySlug } from '@/lib/blog';
-import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
-import ShareButton from './ShareButton';
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { Metadata } from "next";
+import MDXRenderer from "@/components/MDXRenderer";
+import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import ShareButton from "./ShareButton";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -17,13 +17,15 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
   if (!post) {
     return {
-      title: 'Article Not Found | Reginald Ojunga',
+      title: "Article Not Found | Reginald Ojunga",
     };
   }
 
@@ -79,7 +81,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 font-medium text-neutral-700 dark:text-neutral-300">
               <User className="w-3.5 h-3.5 text-amber-600 dark:text-yellow-400" />
-              <span>{post.author || 'Reginald Ojunga'}</span>
+              <span>{post.author || "Reginald Ojunga"}</span>
             </span>
             <span>•</span>
             <span className="flex items-center gap-1.5">

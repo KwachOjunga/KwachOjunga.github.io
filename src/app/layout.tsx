@@ -6,51 +6,51 @@ import "./globals.css";
 import { Viewport } from "next";
 
 const inter = Inter({
-    variable: "--font-inter",
-    subsets: ["latin"],
-    display: "swap",
-    weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
-    variable: "--font-jetbrains-mono",
-    subsets: ["latin"],
-    display: "swap",
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-    title: "Reginald Ojunga | Compiler Engineer",
-    description:
-        "Professional portfolio of Reginald Ojunga - Software Engineering practitioner, compiler engineer and budding chip architect.",
-    // icons: {
-    //     icon: [
-    //         { url: "/favicon.svg", type: "image/svg+xml" },
-    //         { url: "/favicon.ico", sizes: "" },
-    //     ],
-    //     apple: "/favicon.svg",
-    // },
+  title: "Reginald Ojunga | Compiler Engineer",
+  description:
+    "Professional portfolio of Reginald Ojunga - Software Engineering practitioner, compiler engineer and budding chip architect.",
+  // icons: {
+  //     icon: [
+  //         { url: "/favicon.svg", type: "image/svg+xml" },
+  //         { url: "/favicon.ico", sizes: "" },
+  //     ],
+  //     apple: "/favicon.svg",
+  // },
 };
 
 export const viewport: Viewport = {
-    width: "device-width",
-    initialScale: 1,
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <html lang="en" suppressHydrationWarning>
-            <body
-                className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
-            >
-                <ThemeProvider>
-                    <Header />
-                    {children}
-                </ThemeProvider>
-            </body>
-        </html>
-    );
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
+      >
+        <ThemeProvider>
+          <Header />
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }

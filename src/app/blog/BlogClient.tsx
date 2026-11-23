@@ -1,9 +1,19 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import { BlogPost } from '@/lib/blog';
-import { Search, Calendar, Clock,  Copy, Check, BookOpen, ArrowRight, X, FileCode } from 'lucide-react';
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import { BlogPost } from "@/lib/blog";
+import {
+  Search,
+  Calendar,
+  Clock,
+  Copy,
+  Check,
+  BookOpen,
+  ArrowRight,
+  X,
+  FileCode,
+} from "lucide-react";
 
 interface BlogClientProps {
   initialPosts: BlogPost[];
@@ -11,19 +21,22 @@ interface BlogClientProps {
 }
 
 export default function BlogClient({ initialPosts, tags }: BlogClientProps) {
-  const [selectedTag, setSelectedTag] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTag, setSelectedTag] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [copied, setCopied] = useState(false);
 
   // Template state for quick helper
-  const [newTitle, setNewTitle] = useState('Deep Dive into Rust Concurrency');
-  const [newDesc, setNewDesc] = useState('Exploring fearless concurrency, atomic primitives, and async runtimes.');
-  const [newTags, setNewTags] = useState('Rust, Systems, Concurrency');
+  const [newTitle, setNewTitle] = useState("Deep Dive into Rust Concurrency");
+  const [newDesc, setNewDesc] = useState(
+    "Exploring fearless concurrency, atomic primitives, and async runtimes.",
+  );
+  const [newTags, setNewTags] = useState("Rust, Systems, Concurrency");
 
   const filteredPosts = useMemo(() => {
     return initialPosts.filter((post) => {
-      const matchesTag = selectedTag === 'All' || post.tags.includes(selectedTag);
+      const matchesTag =
+        selectedTag === "All" || post.tags.includes(selectedTag);
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
         !q ||
@@ -37,14 +50,17 @@ export default function BlogClient({ initialPosts, tags }: BlogClientProps) {
 
   const generatedSlug = newTitle
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-');
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
 
   const sampleFrontmatter = `---
 title: "${newTitle}"
-date: "${new Date().toISOString().split('T')[0]}"
+date: "${new Date().toISOString().split("T")[0]}"
 description: "${newDesc}"
-tags: [${newTags.split(',').map(t => `"${t.trim()}"`).join(', ')}]
+tags: [${newTags
+    .split(",")
+    .map((t) => `"${t.trim()}"`)
+    .join(", ")}]
 author: "Reginald Ojunga"
 ---
 
@@ -85,8 +101,9 @@ Wrap up with takeaways.
             Engineering Blog
           </h1>
           <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
-            Thoughts, technical deep dives, and architectural explorations in systems programming,
-            compilers, hardware architectures, and cloud DevOps.
+            Thoughts, technical deep dives, and architectural explorations in
+            systems programming, compilers, hardware architectures, and cloud
+            DevOps.
           </p>
         </div>
 
@@ -116,11 +133,11 @@ Wrap up with takeaways.
         {/* Tag Filters */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
           <button
-            onClick={() => setSelectedTag('All')}
+            onClick={() => setSelectedTag("All")}
             className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-              selectedTag === 'All'
-                ? 'bg-yellow-400 text-neutral-950 shadow-sm'
-                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200/70 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800'
+              selectedTag === "All"
+                ? "bg-yellow-400 text-neutral-950 shadow-sm"
+                : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200/70 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800"
             }`}
           >
             All Topics ({initialPosts.length})
@@ -131,8 +148,8 @@ Wrap up with takeaways.
               onClick={() => setSelectedTag(tag)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                 selectedTag === tag
-                  ? 'bg-yellow-400 text-neutral-950 shadow-sm'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200/70 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800'
+                  ? "bg-yellow-400 text-neutral-950 shadow-sm"
+                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200/70 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800"
               }`}
             >
               #{tag}
@@ -144,7 +161,9 @@ Wrap up with takeaways.
       {/* Post List */}
       {filteredPosts.length === 0 ? (
         <div className="text-center py-16 px-4 rounded-xl border border-dashed border-neutral-200 dark:border-neutral-800">
-          <p className="text-base font-medium text-neutral-800 dark:text-neutral-200">No blog posts found</p>
+          <p className="text-base font-medium text-neutral-800 dark:text-neutral-200">
+            No blog posts found
+          </p>
           <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
             Try searching for something else or clear the selected tag.
           </p>
@@ -174,7 +193,10 @@ Wrap up with takeaways.
                 )}
               </div>
 
-              <Link href={`/blog/${post.slug}`} className="block group-hover:text-amber-600 dark:group-hover:text-yellow-400 transition-colors">
+              <Link
+                href={`/blog/${post.slug}`}
+                className="block group-hover:text-amber-600 dark:group-hover:text-yellow-400 transition-colors"
+              >
                 <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 group-hover:text-amber-600 dark:group-hover:text-yellow-400 transition-colors mb-2">
                   {post.title}
                 </h2>
@@ -242,11 +264,28 @@ Wrap up with takeaways.
             {/* Content Body */}
             <div className="p-6 overflow-y-auto space-y-6 text-sm">
               <div className="bg-amber-500/10 dark:bg-yellow-400/10 border border-amber-400/30 rounded-xl p-4 text-amber-900 dark:text-yellow-200 space-y-2">
-                <p className="font-medium">It&apos;s 100% file-based and effortless!</p>
+                <p className="font-medium">
+                  It&apos;s 100% file-based and effortless!
+                </p>
                 <ol className="list-decimal list-inside space-y-1 text-xs opacity-90">
-                  <li>Create a file inside <code className="bg-amber-100 dark:bg-yellow-950/60 px-1 py-0.5 rounded font-mono text-[11px] text-amber-900 dark:text-yellow-200">src/content/blog/</code> named <code className="bg-amber-100 dark:bg-yellow-950/60 px-1 py-0.5 rounded font-mono text-[11px] text-amber-900 dark:text-yellow-200">{generatedSlug || 'my-article'}.mdx</code></li>
-                  <li>Paste the frontmatter header (title, date, description, tags).</li>
-                  <li>Write your markdown content and save. Next.js instantly parses and publishes it!</li>
+                  <li>
+                    Create a file inside{" "}
+                    <code className="bg-amber-100 dark:bg-yellow-950/60 px-1 py-0.5 rounded font-mono text-[11px] text-amber-900 dark:text-yellow-200">
+                      src/content/blog/
+                    </code>{" "}
+                    named{" "}
+                    <code className="bg-amber-100 dark:bg-yellow-950/60 px-1 py-0.5 rounded font-mono text-[11px] text-amber-900 dark:text-yellow-200">
+                      {generatedSlug || "my-article"}.mdx
+                    </code>
+                  </li>
+                  <li>
+                    Paste the frontmatter header (title, date, description,
+                    tags).
+                  </li>
+                  <li>
+                    Write your markdown content and save. Next.js instantly
+                    parses and publishes it!
+                  </li>
                 </ol>
               </div>
 
@@ -296,14 +335,21 @@ Wrap up with takeaways.
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
-                    Target path: src/content/blog/{generatedSlug || 'my-article'}.mdx
+                    Target path: src/content/blog/
+                    {generatedSlug || "my-article"}.mdx
                   </span>
                   <button
                     onClick={copyTemplate}
                     className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 text-xs font-medium hover:opacity-90 transition-opacity"
                   >
-                    {copied ? <Check className="w-3.5 h-3.5 text-yellow-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? 'Copied to Clipboard!' : 'Copy Template'}</span>
+                    {copied ? (
+                      <Check className="w-3.5 h-3.5 text-yellow-400" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                    <span>
+                      {copied ? "Copied to Clipboard!" : "Copy Template"}
+                    </span>
                   </button>
                 </div>
                 <pre className="p-4 rounded-xl bg-neutral-900 text-neutral-100 text-xs font-mono overflow-x-auto border border-neutral-800 leading-relaxed max-h-48">

@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
 export interface BlogPost {
   slug: string;
@@ -13,7 +13,7 @@ export interface BlogPost {
   content: string;
 }
 
-const BLOG_DIR = path.join(process.cwd(), 'src/content/blog');
+const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
 
 function estimateReadTime(content: string): string {
   const words = content.trim().split(/\s+/).length;
@@ -30,24 +30,24 @@ export function getAllPosts(): BlogPost[] {
   const posts: BlogPost[] = [];
 
   for (const filename of files) {
-    if (!filename.endsWith('.md') && !filename.endsWith('.mdx')) continue;
-    if (filename.toLowerCase().startsWith('readme')) continue;
+    if (!filename.endsWith(".md") && !filename.endsWith(".mdx")) continue;
+    if (filename.toLowerCase().startsWith("readme")) continue;
 
-    const slug = filename.replace(/\.(mdx|md)$/, '');
+    const slug = filename.replace(/\.(mdx|md)$/, "");
     const fullPath = path.join(BLOG_DIR, filename);
-    const rawContent = fs.readFileSync(fullPath, 'utf8');
+    const rawContent = fs.readFileSync(fullPath, "utf8");
 
     try {
       const { data, content } = matter(rawContent);
 
       posts.push({
         slug,
-        title: data.title || slug.replace(/-/g, ' '),
-        date: data.date ? String(data.date) : 'Recently',
-        description: data.description || '',
+        title: data.title || slug.replace(/-/g, " "),
+        date: data.date ? String(data.date) : "Recently",
+        description: data.description || "",
         tags: Array.isArray(data.tags) ? data.tags : [],
         readTime: data.readTime || estimateReadTime(content),
-        author: data.author || 'Reginald Ojunga',
+        author: data.author || "Reginald Ojunga",
         content,
       });
     } catch (err) {

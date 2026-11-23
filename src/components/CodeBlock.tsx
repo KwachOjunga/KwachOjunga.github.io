@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import Prism from 'prismjs';
+import React, { useEffect, useState } from "react";
+import Prism from "prismjs";
 
-import 'prismjs/components/prism-rust';
-import 'prismjs/components/prism-c';
-import 'prismjs/components/prism-llvm';
-import 'prismjs/components/prism-nasm';
-import 'prismjs/components/prism-verilog';
-import 'prismjs/components/prism-yaml';
-import 'prismjs/components/prism-bash';
-import 'prismjs/components/prism-markdown';
-import 'prismjs/components/prism-json';
+import "prismjs/components/prism-rust";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-llvm";
+import "prismjs/components/prism-nasm";
+import "prismjs/components/prism-verilog";
+import "prismjs/components/prism-yaml";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-markdown";
+import "prismjs/components/prism-json";
 
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check } from "lucide-react";
 
 interface CodeBlockProps {
   code: string;
@@ -29,114 +29,111 @@ const LANGUAGE_MAP: Record<
   }
 > = {
   rust: {
-    prism: 'rust',
-    label: 'Rust',
+    prism: "rust",
+    label: "Rust",
   },
   rs: {
-    prism: 'rust',
-    label: 'Rust',
+    prism: "rust",
+    label: "Rust",
   },
 
   c: {
-    prism: 'c',
-    label: 'C',
+    prism: "c",
+    label: "C",
   },
   cpp: {
-    prism: 'c',
-    label: 'C++',
+    prism: "c",
+    label: "C++",
   },
 
   llvm: {
-    prism: 'llvm',
-    label: 'LLVM IR',
+    prism: "llvm",
+    label: "LLVM IR",
   },
 
   asm: {
-    prism: 'nasm',
-    label: 'Assembly',
+    prism: "nasm",
+    label: "Assembly",
   },
   assembly: {
-    prism: 'nasm',
-    label: 'Assembly',
+    prism: "nasm",
+    label: "Assembly",
   },
   nasm: {
-    prism: 'nasm',
-    label: 'x86-64 ASM',
+    prism: "nasm",
+    label: "x86-64 ASM",
   },
 
   verilog: {
-    prism: 'verilog',
-    label: 'Verilog',
+    prism: "verilog",
+    label: "Verilog",
   },
   systemverilog: {
-    prism: 'verilog',
-    label: 'SystemVerilog',
+    prism: "verilog",
+    label: "SystemVerilog",
   },
 
   yaml: {
-    prism: 'yaml',
-    label: 'YAML',
+    prism: "yaml",
+    label: "YAML",
   },
   yml: {
-    prism: 'yaml',
-    label: 'YAML',
+    prism: "yaml",
+    label: "YAML",
   },
   hcl: {
-    prism: 'yaml',
-    label: 'HCL / Terraform',
+    prism: "yaml",
+    label: "HCL / Terraform",
   },
 
   bash: {
-    prism: 'bash',
-    label: 'Bash',
+    prism: "bash",
+    label: "Bash",
   },
   sh: {
-    prism: 'bash',
-    label: 'Shell',
+    prism: "bash",
+    label: "Shell",
   },
 
   json: {
-    prism: 'json',
-    label: 'JSON',
+    prism: "json",
+    label: "JSON",
   },
 
   markdown: {
-    prism: 'markdown',
-    label: 'Markdown',
+    prism: "markdown",
+    label: "Markdown",
   },
   md: {
-    prism: 'markdown',
-    label: 'Markdown',
+    prism: "markdown",
+    label: "Markdown",
   },
 
   text: {
-    prism: 'text',
-    label: 'Plain Text',
+    prism: "text",
+    label: "Plain Text",
   },
 };
 
 export default function CodeBlock({
   code,
-  language = 'text',
-  className = '',
+  language = "text",
+  className = "",
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
-  const [highlightedHtml, setHighlightedHtml] = useState('');
+  const [highlightedHtml, setHighlightedHtml] = useState("");
 
   const cleanLang = language
     .toLowerCase()
-    .replace(/^language-/, '')
+    .replace(/^language-/, "")
     .trim();
 
-  const langConfig =
-    LANGUAGE_MAP[cleanLang] ?? {
-      prism: cleanLang,
-      label: cleanLang
-        ? cleanLang.toUpperCase()
-        : 'CODE',
-    };
+  const langConfig = LANGUAGE_MAP[cleanLang] ?? {
+    prism: cleanLang,
+    label: cleanLang ? cleanLang.toUpperCase() : "CODE",
+  };
 
-  const rawCode = code.replace(/\n$/, '');
+  const rawCode = code.replace(/\n$/, "");
 
   useEffect(() => {
     const grammar = Prism.languages[langConfig.prism];
@@ -144,33 +141,29 @@ export default function CodeBlock({
     if (!grammar) {
       setHighlightedHtml(
         rawCode
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;"),
       );
 
       return;
     }
 
     try {
-      const html = Prism.highlight(
-        rawCode,
-        grammar,
-        langConfig.prism
-      );
+      const html = Prism.highlight(rawCode, grammar, langConfig.prism);
 
       setHighlightedHtml(html);
     } catch (error) {
       console.warn(
         `Prism highlighting failed for "${langConfig.prism}"`,
-        error
+        error,
       );
 
       setHighlightedHtml(
         rawCode
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;"),
       );
     }
   }, [rawCode, langConfig.prism]);
@@ -185,7 +178,7 @@ export default function CodeBlock({
         setCopied(false);
       }, 2000);
     } catch (error) {
-      console.error('Failed to copy code:', error);
+      console.error("Failed to copy code:", error);
     }
   };
 
@@ -224,9 +217,7 @@ export default function CodeBlock({
           ) : (
             <>
               <Copy className="w-3.5 h-3.5" />
-              <span className="text-[11px]">
-                Copy
-              </span>
+              <span className="text-[11px]">Copy</span>
             </>
           )}
         </button>

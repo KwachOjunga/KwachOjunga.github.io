@@ -21,17 +21,22 @@
   --font-mono: var(--font-jetbrains-mono);
 }
 
-
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
   scroll-behavior: smooth;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -41,7 +46,6 @@ body {
   background: var(--color-background);
   backdrop-filter: blur(8px);
 }
-
 
 /* Text colors */
 .text-secondary {
@@ -201,7 +205,8 @@ body {
 
 /* Animation keyframes */
 @keyframes gradient-xy {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -221,7 +226,8 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -230,7 +236,12 @@ body {
 }
 
 .animate-gradient-xy {
-  background: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+  background: linear-gradient(
+    45deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-primary)
+  );
   background-size: 400% 400%;
   animation: gradient-xy 15s ease infinite;
 }

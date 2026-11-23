@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
-import MermaidDiagram from './MermaidDiagram';
-import CodeBlock from './CodeBlock';
-import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+import React from "react";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import MermaidDiagram from "./MermaidDiagram";
+import CodeBlock from "./CodeBlock";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 
 interface MDXRendererProps {
   content: string;
@@ -16,7 +16,7 @@ interface MDXRendererProps {
 
 export default function MDXRenderer({
   content,
-  className = '',
+  className = "",
 }: MDXRendererProps) {
   return (
     <div className={`mdx-content ${className}`}>
@@ -46,8 +46,8 @@ export default function MDXRenderer({
            */
           code: ({ className, children, ...props }) => {
             const codeString = String(children);
-            const match = /language-([\w-]+)/.exec(className || '');
-            const language = match?.[1]?.toLowerCase() || '';
+            const match = /language-([\w-]+)/.exec(className || "");
+            const language = match?.[1]?.toLowerCase() || "";
 
             /*
              * Mermaid must be explicitly declared:
@@ -59,12 +59,8 @@ export default function MDXRenderer({
              *
              * Do not infer Mermaid from the contents of the code.
              */
-            if (language === 'mermaid') {
-              return (
-                <MermaidDiagram
-                  chart={codeString.replace(/\n$/, '')}
-                />
-              );
+            if (language === "mermaid") {
+              return <MermaidDiagram chart={codeString.replace(/\n$/, "")} />;
             }
 
             /*
@@ -75,8 +71,7 @@ export default function MDXRenderer({
              *
              * Block code is handled by CodeBlock below.
              */
-            const isInline =
-              !className && !codeString.includes('\n');
+            const isInline = !className && !codeString.includes("\n");
 
             if (isInline) {
               return (
@@ -90,10 +85,7 @@ export default function MDXRenderer({
             }
 
             return (
-              <CodeBlock
-                code={codeString}
-                language={language || 'text'}
-              />
+              <CodeBlock code={codeString} language={language || "text"} />
             );
           },
 
@@ -146,8 +138,7 @@ export default function MDXRenderer({
 
           a: ({ href, children, ...props }) => {
             const isExternal =
-              href?.startsWith('http') ||
-              href?.startsWith('//');
+              href?.startsWith("http") || href?.startsWith("//");
 
             if (isExternal && href) {
               return (
@@ -214,7 +205,7 @@ export default function MDXRenderer({
           ),
 
           section: ({ node, ...props }: any) => {
-            if (props['data-footnotes']) {
+            if (props["data-footnotes"]) {
               return (
                 <section
                   {...props}

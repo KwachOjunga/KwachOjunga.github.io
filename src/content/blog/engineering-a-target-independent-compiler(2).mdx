@@ -29,14 +29,14 @@ The answer is LLVM IR — a carefully engineered software contract.
 
 Two natural candidates already existed long before LLVM.
 
-(a). **Abstract Syntax Trees** preserve almost everything a frontend knows about the source program: 
+(a). **Abstract Syntax Trees** preserve almost everything a frontend knows about the source program:
 syntactic structure, types, scopes, and language-specific semantics. They are excellent for language-specific
 analysis and transformation. They are poor candidates for a shared abstraction.
 Their use results to a fragile interface that proves constricting to language designers
 (There are only so many language grammars a single AST can represent).
 
-An AST for Rust's ownership and borrowing rules has little in common with an AST for C's 
-unchecked pointers or Swift's reference counting. An optimizer written against one would be 
+An AST for Rust's ownership and borrowing rules has little in common with an AST for C's
+unchecked pointers or Swift's reference counting. An optimizer written against one would be
 nearly useless for the others. The N × M problem would simply reappear at the level of tree walks and type checkers.
 
 Consider:
@@ -61,12 +61,13 @@ FunctionDecl
                 ├── DeclRefExpr: x
                 └── IntegerLiteral: 1
 ```
-It knows that this is a C function, that `x` is an `int`, that `+` is a source-level 
+
+It knows that this is a C function, that `x` is an `int`, that `+` is a source-level
 addition expression, and that the expression is the operand of a `return`.
 
 Note: This example may not clearly illustrate the advantages of LLVM IR over ASTs
-because of the stable way in which function structures are conceptualized across different 
-languages. But try thinking of language specific contexts. For instance, the various ways in which 
+because of the stable way in which function structures are conceptualized across different
+languages. But try thinking of language specific contexts. For instance, the various ways in which
 object oriented languages model shared behavior. (Just pick a language specific context)
 
 In contrast, LLVM IR has deliberately forgotten most of that:
@@ -82,12 +83,12 @@ entry:
 There is no `ReturnStmt`, no `BinaryOperator` AST node, and no C-specific notion of an `int` declaration.
 This means the constrain to neccessarily use the return keyword is lifted.(Of course, the space with
 which one can describe what it means for a function to have a return value is limited but
-at least it affords the authors a way to describe what it means for a function to have a return 
+at least it affords the authors a way to describe what it means for a function to have a return
 value without being tied to a keyword or notation).
 
 Programming languages are avenues to think about what is underneath.
 
-The important point is not that LLVM IR contains *less information*. It contains **different information**: source-language structure has been replaced by explicit computation.
+The important point is not that LLVM IR contains _less information_. It contains **different information**: source-language structure has been replaced by explicit computation.
 
 To further illustrate:
 
@@ -126,9 +127,8 @@ visibility
 attributes
 ```
 
-An optimization pass that has to generalise across mulitple target architectures has no need 
+An optimization pass that has to generalise across mulitple target architectures has no need
 to grasp the language-specific details of the source code.
-
 
 (b). **Raw assembly or machine code** sits at the opposite extreme. It is already target-specific. Register names,
 instruction encodings, calling conventions, and ABI details are baked in. An optimizer working at this level
@@ -162,15 +162,15 @@ flowchart LR
     Swift --> IR
     IR --> OPT
 ```
+
 </div>
 
 LLVM IR is that abstraction.
 
-It occupies the narrow design space between language-specific trees and machine-specific code. 
+It occupies the narrow design space between language-specific trees and machine-specific code.
 Frontends lower their ASTs into LLVM IR; the middle-end optimizes that IR without knowing which
 language produced it; backends later lower the optimized IR into Machine IR and ultimately machine
 code.
-
 
 Consider our initial function after lowering to a target architecture.
 
@@ -219,7 +219,7 @@ graph TD
     C --> D[Machine Code]
 ```
 
-Thus, LLVM IR is deliberately not a programming language in the conventional sense. It is a 
+Thus, LLVM IR is deliberately not a programming language in the conventional sense. It is a
 **contract** that defines:
 
 - what values exist,
@@ -290,10 +290,10 @@ flowchart TD
 ```
 
 The `phi` instruction is important here. It represents the SSA value selected
-according to which predecessor block was taken. LLVM's language reference 
+according to which predecessor block was taken. LLVM's language reference
 specifies `phi` precisely in terms of the predecessor blocks of the current basic block.
 
-This is something an optimizer benefits from having **explicitly represented** rather than having to 
+This is something an optimizer benefits from having **explicitly represented** rather than having to
 rediscover from source-level syntax.
 
 The previous IR contains two control-flow paths.
@@ -322,7 +322,6 @@ abs_value:
 
 So to further refine the nature of the pipeline, what we currently have is;
 
-
 ```mermaid
 graph TD
     A[AST<br/>source-level control structure] --> B[LLVM IR<br/>explicit CFG + SSA]
@@ -340,14 +339,14 @@ transformation walks. Because the IR is in SSA[^2] form, each value has a single
 dramatically simplifies many algorithms.
 
 **Modules, Functions, Basic Blocks, and Instructions**  
-A `Module` is the top-level container (roughly a compilation unit). It contains `Function`s. 
-Each function contains `BasicBlock`s. Each basic block contains a linear sequence of 
+A `Module` is the top-level container (roughly a compilation unit). It contains `Function`s.
+Each function contains `BasicBlock`s. Each basic block contains a linear sequence of
 `Instruction`s that ends in a terminator. This hierarchical structure gives optimizers clear units
 of work and clear control-flow graphs.
 
 **The Type System**  
 LLVM IR is strongly typed. Integer types of arbitrary bit width, floating-point types, pointers, arrays,
-structs, vectors, and function types are all first-class. The type system is deliberately low-level; 
+structs, vectors, and function types are all first-class. The type system is deliberately low-level;
 it does not encode high-level language notions such as classes, ownership, or generics. Those concepts must
 be lowered by the frontend.
 
@@ -357,7 +356,7 @@ string describes pointer sizes, alignment rules, endianness, and related propert
 of target information into the "target-independent" IR.
 
 **Attributes, Metadata, and Calling Conventions**  
-Function and parameter attributes, metadata nodes, and explicit calling-convention annotations provide the additional 
+Function and parameter attributes, metadata nodes, and explicit calling-convention annotations provide the additional
 channels through which frontends and targets communicate information that does not belong in the core instruction set
 (inlining hints, aliasing properties, debug information, exception-handling tables, etc.).
 
@@ -368,24 +367,24 @@ binary interface (bitcode) and expressive enough for serious optimization.
 
 LLVM IR must satisfy two opposing pressures simultaneously.
 
-It must be **high enough** that the same optimizer can improve code originating from very different languages. 
+It must be **high enough** that the same optimizer can improve code originating from very different languages.
 High-level information that has been needlessly discarded cannot be recovered later.
 
-It must be **low enough** that the eventual mapping to real hardware remains efficient. An IR that is too abstract 
+It must be **low enough** that the eventual mapping to real hardware remains efficient. An IR that is too abstract
 forces the backend to re-discover facts that should have been explicit.
 
 The design therefore makes a series of deliberate choices:
 
-- SSA form is required. This simplifies optimization at the cost of making the IR harder to emit directly 
+- SSA form is required. This simplifies optimization at the cost of making the IR harder to emit directly
   from some frontends.
-- The type system is structural and relatively simple. Rich language type systems must be erased or encoded explicitly by 
+- The type system is structural and relatively simple. Rich language type systems must be erased or encoded explicitly by
   the frontend.
-- Control flow is explicit and unstructured (basic blocks + terminators) rather than structured. This makes many analyses 
+- Control flow is explicit and unstructured (basic blocks + terminators) rather than structured. This makes many analyses
   uniform at the cost of losing surface syntax.
-- Side effects, memory, and concurrency are modeled with a relatively small set of primitive instructions plus attributes 
+- Side effects, memory, and concurrency are modeled with a relatively small set of primitive instructions plus attributes
   and metadata.
 
-These decisions are not inevitable; they are engineering judgments about which complexities belong in the shared middle 
+These decisions are not inevitable; they are engineering judgments about which complexities belong in the shared middle
 and which complexities should be pushed into frontends or backends.
 
 ### 6. The Abstraction Leaks
@@ -398,8 +397,8 @@ Even though LLVM IR is presented as target-independent, several forms of target 
 - **Address spaces** — required for some architectures and for certain language features (e.g., GPU memory spaces).
 - **Atomic memory operations** — whose precise semantics can depend on the target’s memory model.
 
-These are not accidental impurities. They exist because a purely target-agnostic IR would force either incorrect code or 
-an explosion of complexity in every backend. LLVM’s pragmatic stance is that a small, well-documented set of target facts 
+These are not accidental impurities. They exist because a purely target-agnostic IR would force either incorrect code or
+an explosion of complexity in every backend. LLVM’s pragmatic stance is that a small, well-documented set of target facts
 may appear early, provided the great majority of optimization remains independent of any particular ISA.
 
 The presence of these leaks reinforces a principle already stated in Part 1: good abstractions isolate complexity; they
@@ -410,10 +409,10 @@ do not pretend the complexity has vanished.
 The core IR implementation lives in two tightly related locations:
 
 - `llvm/include/llvm/IR/` — public headers defining `Module`, `Function`, `BasicBlock`, `Instruction`, `Value`, `Type`, `DataLayout`, attributes, metadata, and related classes.
-- `llvm/lib/IR/` — the corresponding implementations, including the bitcode reader/writer, the assembler/disassembler for 
+- `llvm/lib/IR/` — the corresponding implementations, including the bitcode reader/writer, the assembler/disassembler for
   the textual IR, and the core data structures that maintain use-def chains.
 
-When reading this code, notice how little of it knows about any particular programming language or processor. That ignorance 
+When reading this code, notice how little of it knows about any particular programming language or processor. That ignorance
 is intentional; it is exactly what allows the same libraries to be reused by many clients.
 
 ### 8. Looking Ahead
@@ -421,7 +420,7 @@ is intentional; it is exactly what allows the same libraries to be reused by man
 We now have a common language that many frontends can speak and that a shared optimizer can understand. The next engineering question
 is immediate:
 
-Once a program has been expressed in LLVM IR, how should a collection of independent analyses and transformations be organized so 
+Once a program has been expressed in LLVM IR, how should a collection of independent analyses and transformations be organized so
 that they remain composable, reusable, and largely target-independent?
 
 That question leads directly to the Pass Manager and the middle-end contract — the subject of Part 3.
@@ -434,13 +433,14 @@ ASTs were too language-specific. Assembly was too machine-specific. LLVM IR was 
 
 ### Series Thread
 
-As previously stated or at least hinted at, every abstraction in LLVM exists because the previous one could not adequately contain 
+As previously stated or at least hinted at, every abstraction in LLVM exists because the previous one could not adequately contain
 a particular form of complexity.
-The traditional monolithic compiler could not solve the N × M scaling problem → LLVM introduced the compiler-as-libraries abstraction (Part 1). 
-ASTs and assembly could not serve as a shared medium between many languages and many targets → LLVM introduced LLVM IR as the universal 
+The traditional monolithic compiler could not solve the N × M scaling problem → LLVM introduced the compiler-as-libraries abstraction (Part 1).
+ASTs and assembly could not serve as a shared medium between many languages and many targets → LLVM introduced LLVM IR as the universal
 contract (Part 2).
 
 The next layer will confront a new problem: how to organize dozens of independent optimizations so that they remain maintainable and reusable across all the languages that now speak this common IR.
 
 [^1]: More information can be found from [Lattner's thesis](https://llvm.org/pubs/2005-05-04-LattnerPHDThesis.pdf) and the [LLVM documentation](https://llvm.org/docs/).
+
 [^2]: [SSABook](https://pfalcon.github.io/ssabook/latest/book-full.pdf)

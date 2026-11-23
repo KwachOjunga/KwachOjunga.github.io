@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef, useState, useId } from 'react';
-import { useTheme } from 'next-themes';
+import React, { useEffect, useRef, useState, useId } from "react";
+import { useTheme } from "next-themes";
 import {
   Copy,
   Check,
@@ -13,7 +13,7 @@ import {
   Minimize2,
   AlertTriangle,
   RefreshCw,
-} from 'lucide-react';
+} from "lucide-react";
 
 interface MermaidDiagramProps {
   chart: string;
@@ -22,11 +22,11 @@ interface MermaidDiagramProps {
 
 export default function MermaidDiagram({
   chart,
-  className = '',
+  className = "",
 }: MermaidDiagramProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const [svgContent, setSvgContent] = useState('');
+  const [svgContent, setSvgContent] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -46,10 +46,10 @@ export default function MermaidDiagram({
    * generates a new value during render here. diagramId is a
    * dependency of the Mermaid rendering effect.
    */
-  const diagramId = `mermaid${rawId.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const diagramId = `mermaid${rawId.replace(/[^a-zA-Z0-9]/g, "")}`;
 
   const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const isDark = resolvedTheme === "dark";
 
   /*
    * Hydration guard.
@@ -76,46 +76,44 @@ export default function MermaidDiagram({
 
     const renderDiagram = async () => {
       try {
-        const mermaid = (await import('mermaid')).default;
+        const mermaid = (await import("mermaid")).default;
 
         mermaid.initialize({
           startOnLoad: false,
-          securityLevel: 'loose',
+          securityLevel: "loose",
           fontFamily:
             'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
 
-          theme: isDark ? 'dark' : 'default',
+          theme: isDark ? "dark" : "default",
 
           themeVariables: isDark
             ? {
                 darkMode: true,
-                background: '#18181b',
-                primaryColor: '#27272a',
-                primaryTextColor: '#f4f4f5',
-                primaryBorderColor: '#3f3f46',
-                lineColor: '#a1a1aa',
-                secondaryColor: '#27272a',
-                tertiaryColor: '#18181b',
-                fontFamily:
-                  'ui-sans-serif, system-ui, sans-serif',
+                background: "#18181b",
+                primaryColor: "#27272a",
+                primaryTextColor: "#f4f4f5",
+                primaryBorderColor: "#3f3f46",
+                lineColor: "#a1a1aa",
+                secondaryColor: "#27272a",
+                tertiaryColor: "#18181b",
+                fontFamily: "ui-sans-serif, system-ui, sans-serif",
               }
             : {
                 darkMode: false,
-                background: '#ffffff',
-                primaryColor: '#f4f4f5',
-                primaryTextColor: '#18181b',
-                primaryBorderColor: '#d4d4d8',
-                lineColor: '#71717a',
-                secondaryColor: '#f4f4f5',
-                tertiaryColor: '#ffffff',
-                fontFamily:
-                  'ui-sans-serif, system-ui, sans-serif',
+                background: "#ffffff",
+                primaryColor: "#f4f4f5",
+                primaryTextColor: "#18181b",
+                primaryBorderColor: "#d4d4d8",
+                lineColor: "#71717a",
+                secondaryColor: "#f4f4f5",
+                tertiaryColor: "#ffffff",
+                fontFamily: "ui-sans-serif, system-ui, sans-serif",
               },
 
           flowchart: {
             useMaxWidth: false,
             htmlLabels: true,
-            curve: 'basis',
+            curve: "basis",
           },
         });
 
@@ -131,10 +129,7 @@ export default function MermaidDiagram({
 
         const trimmedChart = chart.trim();
 
-        const { svg } = await mermaid.render(
-          diagramId,
-          trimmedChart
-        );
+        const { svg } = await mermaid.render(diagramId, trimmedChart);
 
         if (isCancelled) {
           return;
@@ -148,12 +143,12 @@ export default function MermaidDiagram({
           return;
         }
 
-        console.error('Mermaid render error:', err);
+        console.error("Mermaid render error:", err);
 
         const message =
           err instanceof Error
             ? err.message
-            : 'Failed to render Mermaid diagram';
+            : "Failed to render Mermaid diagram";
 
         setError(message);
         setIsLoading(false);
@@ -161,9 +156,7 @@ export default function MermaidDiagram({
         /*
          * Mermaid may create an error element when rendering fails.
          */
-        const strayError = document.getElementById(
-          `d${diagramId}`
-        );
+        const strayError = document.getElementById(`d${diagramId}`);
 
         if (strayError) {
           strayError.remove();
@@ -188,23 +181,16 @@ export default function MermaidDiagram({
         setCopied(false);
       }, 2000);
     } catch (err) {
-      console.error(
-        'Failed to copy diagram source:',
-        err
-      );
+      console.error("Failed to copy diagram source:", err);
     }
   };
 
   const handleZoomIn = () => {
-    setZoomLevel((prev) =>
-      Math.min(prev + 0.2, 2.5)
-    );
+    setZoomLevel((prev) => Math.min(prev + 0.2, 2.5));
   };
 
   const handleZoomOut = () => {
-    setZoomLevel((prev) =>
-      Math.max(prev - 0.2, 0.5)
-    );
+    setZoomLevel((prev) => Math.max(prev - 0.2, 0.5));
   };
 
   const handleResetZoom = () => {
@@ -221,9 +207,7 @@ export default function MermaidDiagram({
       >
         <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
           <div className="w-3.5 h-3.5 border-2 border-amber-500/50 border-t-transparent rounded-full animate-spin" />
-          <span>
-            Preparing architecture diagram...
-          </span>
+          <span>Preparing architecture diagram...</span>
         </div>
       </div>
     );
@@ -234,7 +218,7 @@ export default function MermaidDiagram({
       <div
         className={`my-8 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-gradient-to-b from-neutral-50/80 to-white dark:from-neutral-900/80 dark:to-neutral-950 shadow-sm overflow-hidden transition-all ${
           isFullscreen
-            ? 'fixed inset-4 z-50 flex flex-col bg-white dark:bg-neutral-950 shadow-2xl border-neutral-300 dark:border-neutral-700 m-0'
+            ? "fixed inset-4 z-50 flex flex-col bg-white dark:bg-neutral-950 shadow-2xl border-neutral-300 dark:border-neutral-700 m-0"
             : className
         }`}
       >
@@ -293,19 +277,13 @@ export default function MermaidDiagram({
 
             <button
               type="button"
-              onClick={() =>
-                setShowSource((prev) => !prev)
-              }
+              onClick={() => setShowSource((prev) => !prev)}
               className={`p-1.5 rounded-lg transition-colors ${
                 showSource
-                  ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-yellow-400 font-medium'
-                  : 'hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-100'
+                  ? "bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-yellow-400 font-medium"
+                  : "hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-100"
               }`}
-              title={
-                showSource
-                  ? 'Show Diagram'
-                  : 'View Source'
-              }
+              title={showSource ? "Show Diagram" : "View Source"}
               aria-label="Toggle diagram source"
             >
               <CodeIcon className="w-3.5 h-3.5" />
@@ -332,15 +310,9 @@ export default function MermaidDiagram({
 
             <button
               type="button"
-              onClick={() =>
-                setIsFullscreen((prev) => !prev)
-              }
+              onClick={() => setIsFullscreen((prev) => !prev)}
               className="p-1.5 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
-              title={
-                isFullscreen
-                  ? 'Exit Fullscreen'
-                  : 'Fullscreen'
-              }
+              title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
               aria-label="Toggle diagram fullscreen"
             >
               {isFullscreen ? (
@@ -355,18 +327,14 @@ export default function MermaidDiagram({
         {/* Body */}
         <div
           className={`relative p-4 sm:p-6 overflow-x-auto ${
-            isFullscreen
-              ? 'flex-1 overflow-auto'
-              : 'min-h-[140px]'
+            isFullscreen ? "flex-1 overflow-auto" : "min-h-[140px]"
           }`}
         >
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-neutral-950/70 backdrop-blur-[2px] z-10">
               <div className="flex items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400">
                 <RefreshCw className="w-4 h-4 animate-spin text-amber-600 dark:text-yellow-400" />
-                <span>
-                  Rendering diagram...
-                </span>
+                <span>Rendering diagram...</span>
               </div>
             </div>
           )}
@@ -377,9 +345,7 @@ export default function MermaidDiagram({
                 <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-yellow-400 shrink-0 mt-0.5" />
 
                 <div className="space-y-1">
-                  <p className="font-semibold">
-                    Mermaid rendering notice
-                  </p>
+                  <p className="font-semibold">Mermaid rendering notice</p>
 
                   <p className="text-neutral-600 dark:text-neutral-400 font-mono text-[11px] break-all">
                     {error}
@@ -393,18 +359,15 @@ export default function MermaidDiagram({
             </div>
           ) : showSource ? (
             <div className="rounded-xl bg-neutral-900 text-neutral-100 p-4 font-mono text-xs overflow-x-auto border border-neutral-800">
-              <pre className="m-0 leading-relaxed">
-                {chart.trim()}
-              </pre>
+              <pre className="m-0 leading-relaxed">{chart.trim()}</pre>
             </div>
           ) : (
             <div
               ref={containerRef}
               style={{
                 transform: `scale(${zoomLevel})`,
-                transformOrigin: 'top center',
-                transition:
-                  'transform 0.15s ease-out',
+                transformOrigin: "top center",
+                transition: "transform 0.15s ease-out",
               }}
               className="flex justify-center items-center w-full min-w-max mx-auto py-2 [&_svg]:max-w-full [&_svg]:h-auto [&_svg]:mx-auto"
               dangerouslySetInnerHTML={{

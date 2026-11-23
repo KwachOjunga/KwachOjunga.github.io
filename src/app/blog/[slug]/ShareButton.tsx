@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Share2, Check } from 'lucide-react';
+import { useState } from "react";
+import { Share2, Check } from "lucide-react";
 
 export default function ShareButton({ title }: { title: string }) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       try {
         if (navigator.share) {
           await navigator.share({

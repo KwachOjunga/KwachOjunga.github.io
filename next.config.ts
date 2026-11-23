@@ -2,20 +2,20 @@ import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
-    output: "standalone",
+  output: "standalone",
 
-    images: {
-        unoptimized: true,
-    },
+  images: {
+    unoptimized: true,
+  },
 
-    pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 };
 
 const withMDX = createMDX({
-    options: {
-        remarkPlugins: [],
-        rehypePlugins: [],
-    },
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
 });
 
 export default withMDX(nextConfig);

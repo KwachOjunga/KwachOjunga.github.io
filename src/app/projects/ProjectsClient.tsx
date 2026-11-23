@@ -1,33 +1,35 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
-import { Project } from '@/data/projects';
-import { ExternalLink, Code2, Search, Sparkles, Filter } from 'lucide-react';
+import { useState, useMemo } from "react";
+import { Project } from "@/data/projects";
+import { ExternalLink, Code2, Search, Sparkles, Filter } from "lucide-react";
 
 interface ProjectsClientProps {
   initialProjects: Project[];
 }
 
-export default function ProjectsClient({ initialProjects }: ProjectsClientProps) {
-  const [activeCategory, setActiveCategory] = useState<string>('Featured');
-  const [searchQuery, setSearchQuery] = useState('');
+export default function ProjectsClient({
+  initialProjects,
+}: ProjectsClientProps) {
+  const [activeCategory, setActiveCategory] = useState<string>("Featured");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const categories = [
-    'Featured',
-    'All',
-    'Systems & Compilers',
-    'Fullstack & Web',
-    'DevOps & Cloud',
-    'Embedded & Hardware',
+    "Featured",
+    "All",
+    "Systems & Compilers",
+    "Fullstack & Web",
+    "DevOps & Cloud",
+    "Embedded & Hardware",
   ];
 
   const filteredProjects = useMemo(() => {
     return initialProjects.filter((project) => {
       // Category filter
       let matchesCategory = true;
-      if (activeCategory === 'Featured') {
+      if (activeCategory === "Featured") {
         matchesCategory = project.featured;
-      } else if (activeCategory !== 'All') {
+      } else if (activeCategory !== "All") {
         matchesCategory = project.category === activeCategory;
       }
 
@@ -55,8 +57,9 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
           Featured Projects
         </h1>
         <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
-          A collection of software and hardware engineering initiatives spanning compiler frameworks,
-          RISC-V processor architectures, low-level tooling, and systems programming.
+          A collection of software and hardware engineering initiatives spanning
+          compiler frameworks, RISC-V processor architectures, low-level
+          tooling, and systems programming.
         </p>
       </div>
 
@@ -83,8 +86,8 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
               onClick={() => setActiveCategory(cat)}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                 activeCategory === cat
-                  ? 'bg-yellow-400 text-neutral-950 shadow-sm'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200/70 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800'
+                  ? "bg-yellow-400 text-neutral-950 shadow-sm"
+                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200/70 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800"
               }`}
             >
               {cat}
@@ -95,12 +98,15 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
 
       {/* Results Count */}
       <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 mb-6 pb-2 border-b border-neutral-200 dark:border-neutral-800">
-        <span>Showing {filteredProjects.length} {filteredProjects.length === 1 ? 'project' : 'projects'}</span>
-        {(searchQuery || activeCategory !== 'Featured') && (
+        <span>
+          Showing {filteredProjects.length}{" "}
+          {filteredProjects.length === 1 ? "project" : "projects"}
+        </span>
+        {(searchQuery || activeCategory !== "Featured") && (
           <button
             onClick={() => {
-              setSearchQuery('');
-              setActiveCategory('Featured');
+              setSearchQuery("");
+              setActiveCategory("Featured");
             }}
             className="text-amber-600 dark:text-yellow-400 font-semibold hover:underline"
           >
@@ -112,8 +118,12 @@ export default function ProjectsClient({ initialProjects }: ProjectsClientProps)
       {/* Projects Grid */}
       {filteredProjects.length === 0 ? (
         <div className="text-center py-16 px-4 rounded-xl border border-dashed border-neutral-200 dark:border-neutral-800">
-          <p className="text-base font-medium text-neutral-800 dark:text-neutral-200">No projects match your criteria</p>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">Try loosening your search or selecting &ldquo;All&rdquo; categories.</p>
+          <p className="text-base font-medium text-neutral-800 dark:text-neutral-200">
+            No projects match your criteria
+          </p>
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
+            Try loosening your search or selecting &ldquo;All&rdquo; categories.
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

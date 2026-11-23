@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { Search, Menu, X, Home, FolderGit2, BookOpen } from 'lucide-react';
-import ThemeToggle from './ThemeToggle';
-import SearchModal, { SearchPostItem } from './SearchModal';
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Search, Menu, X, Home, FolderGit2, BookOpen } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
+import SearchModal, { SearchPostItem } from "./SearchModal";
 
 export default function Header() {
   const pathname = usePathname();
@@ -16,24 +16,24 @@ export default function Header() {
 
   // Fetch search data on first interaction or mount
   useEffect(() => {
-    fetch('/api/search')
-      .then(res => res.json())
-      .then(data => {
+    fetch("/api/search")
+      .then((res) => res.json())
+      .then((data) => {
         if (data.posts) setSearchPosts(data.posts);
       })
-      .catch(err => console.error('Failed to load search index:', err));
+      .catch((err) => console.error("Failed to load search index:", err));
   }, []);
 
   // Global keyboard shortcut for Search (⌘K / Ctrl+K)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
-        setIsSearchOpen(prev => !prev);
+        setIsSearchOpen((prev) => !prev);
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   // Close mobile menu on route change
@@ -42,13 +42,13 @@ export default function Header() {
   }, [pathname]);
 
   const navItems = [
-    { label: 'Home', path: '/', icon: Home },
-    { label: 'Projects', path: '/projects', icon: FolderGit2 },
-    { label: 'Blog', path: '/blog', icon: BookOpen },
+    { label: "Home", path: "/", icon: Home },
+    { label: "Projects", path: "/projects", icon: FolderGit2 },
+    { label: "Blog", path: "/blog", icon: BookOpen },
   ];
 
   const isActive = (path: string) => {
-    if (path === '/') return pathname === '/';
+    if (path === "/") return pathname === "/";
     return pathname.startsWith(path);
   };
 
@@ -56,7 +56,6 @@ export default function Header() {
     <>
       <header className="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-200/60 dark:border-neutral-800/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          
           {/* Logo & Avatar */}
           <Link
             href="/"
@@ -87,8 +86,8 @@ export default function Header() {
                   href={item.path}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                     active
-                      ? 'bg-yellow-400 text-neutral-950 font-semibold shadow-sm'
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50'
+                      ? "bg-yellow-400 text-neutral-950 font-semibold shadow-sm"
+                      : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50"
                   }`}
                 >
                   {item.label}
@@ -121,7 +120,11 @@ export default function Header() {
               aria-label="Toggle navigation menu"
               className="md:hidden p-2 rounded-lg border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-900"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </button>
           </div>
         </div>
@@ -138,8 +141,8 @@ export default function Header() {
                   href={item.path}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     active
-                      ? 'bg-amber-400/15 text-amber-800 dark:text-yellow-400 font-semibold'
-                      : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-900'
+                      ? "bg-amber-400/15 text-amber-800 dark:text-yellow-400 font-semibold"
+                      : "text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-900"
                   }`}
                 >
                   <Icon className="w-4 h-4" />

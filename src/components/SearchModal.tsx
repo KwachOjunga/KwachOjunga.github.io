@@ -1,9 +1,18 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
-import { Search, X, FileText, FolderGit2, Compass, ArrowRight, CornerDownLeft, Sparkles } from 'lucide-react';
-import { projects } from '@/data/projects';
+import { useState, useEffect, useRef, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Search,
+  X,
+  FileText,
+  FolderGit2,
+  Compass,
+  ArrowRight,
+  CornerDownLeft,
+  Sparkles,
+} from "lucide-react";
+import { projects } from "@/data/projects";
 
 export interface SearchPostItem {
   slug: string;
@@ -20,34 +29,69 @@ interface SearchModalProps {
 }
 
 const STATIC_SECTIONS = [
-  { title: "Home Page", path: "/", description: "Profile overview, bio, and main summary", icon: Compass },
-  { title: "About Reginald", path: "/#about", description: "Background in Medical Engineering and systems design", icon: Compass },
-  { title: "Technical Skills", path: "/#skills", description: "Languages, Compilers, RISC-V, and Hardware toolkits", icon: Compass },
-  { title: "Contact & Socials", path: "/#contact", description: "GitHub, LinkedIn, email, and consultation inquiry", icon: Compass },
-  { title: "Featured Projects Page", path: "/projects", description: "Explore full projects portfolio and demos", icon: FolderGit2 },
-  { title: "Blog & Notes", path: "/blog", description: "Technical articles on compilers, architecture, and engineering", icon: FileText },
+  {
+    title: "Home Page",
+    path: "/",
+    description: "Profile overview, bio, and main summary",
+    icon: Compass,
+  },
+  {
+    title: "About Reginald",
+    path: "/#about",
+    description: "Background in Medical Engineering and systems design",
+    icon: Compass,
+  },
+  {
+    title: "Technical Skills",
+    path: "/#skills",
+    description: "Languages, Compilers, RISC-V, and Hardware toolkits",
+    icon: Compass,
+  },
+  {
+    title: "Contact & Socials",
+    path: "/#contact",
+    description: "GitHub, LinkedIn, email, and consultation inquiry",
+    icon: Compass,
+  },
+  {
+    title: "Featured Projects Page",
+    path: "/projects",
+    description: "Explore full projects portfolio and demos",
+    icon: FolderGit2,
+  },
+  {
+    title: "Blog & Notes",
+    path: "/blog",
+    description:
+      "Technical articles on compilers, architecture, and engineering",
+    icon: FileText,
+  },
 ];
 
-export default function SearchModal({ isOpen, onClose, posts = [] }: SearchModalProps) {
-  const [query, setQuery] = useState('');
+export default function SearchModal({
+  isOpen,
+  onClose,
+  posts = [],
+}: SearchModalProps) {
+  const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 50);
-      setQuery('');
+      setQuery("");
     }
   }, [isOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
   const filteredResults = useMemo(() => {
@@ -55,27 +99,30 @@ export default function SearchModal({ isOpen, onClose, posts = [] }: SearchModal
     if (!q) {
       return {
         posts: posts.slice(0, 3),
-        projects: projects.filter(p => p.featured).slice(0, 3),
+        projects: projects.filter((p) => p.featured).slice(0, 3),
         sections: STATIC_SECTIONS.slice(0, 3),
       };
     }
 
-    const matchedPosts = posts.filter(p =>
-      p.title.toLowerCase().includes(q) ||
-      p.description.toLowerCase().includes(q) ||
-      p.tags.some(t => t.toLowerCase().includes(q))
+    const matchedPosts = posts.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.tags.some((t) => t.toLowerCase().includes(q)),
     );
 
-    const matchedProjects = projects.filter(p =>
-      p.title.toLowerCase().includes(q) ||
-      p.description.toLowerCase().includes(q) ||
-      p.tech.some(t => t.toLowerCase().includes(q)) ||
-      p.category.toLowerCase().includes(q)
+    const matchedProjects = projects.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.tech.some((t) => t.toLowerCase().includes(q)) ||
+        p.category.toLowerCase().includes(q),
     );
 
-    const matchedSections = STATIC_SECTIONS.filter(s =>
-      s.title.toLowerCase().includes(q) ||
-      s.description.toLowerCase().includes(q)
+    const matchedSections = STATIC_SECTIONS.filter(
+      (s) =>
+        s.title.toLowerCase().includes(q) ||
+        s.description.toLowerCase().includes(q),
     );
 
     return {
@@ -121,7 +168,7 @@ export default function SearchModal({ isOpen, onClose, posts = [] }: SearchModal
           />
           {query && (
             <button
-              onClick={() => setQuery('')}
+              onClick={() => setQuery("")}
               className="p-1 rounded text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
               aria-label="Clear query"
             >
@@ -140,8 +187,13 @@ export default function SearchModal({ isOpen, onClose, posts = [] }: SearchModal
         <div className="overflow-y-auto p-4 space-y-6 flex-1 divide-y divide-neutral-100 dark:divide-neutral-800/60">
           {totalResultsCount === 0 ? (
             <div className="py-12 text-center text-neutral-500 dark:text-neutral-400">
-              <p className="text-base font-medium">No results found for &ldquo;{query}&rdquo;</p>
-              <p className="text-sm mt-1">Try searching for &quot;compiler&quot;, &quot;RISC-V&quot;, &quot;DevOps&quot;, or &quot;Rust&quot;.</p>
+              <p className="text-base font-medium">
+                No results found for &ldquo;{query}&rdquo;
+              </p>
+              <p className="text-sm mt-1">
+                Try searching for &quot;compiler&quot;, &quot;RISC-V&quot;,
+                &quot;DevOps&quot;, or &quot;Rust&quot;.
+              </p>
             </div>
           ) : (
             <>
@@ -168,7 +220,10 @@ export default function SearchModal({ isOpen, onClose, posts = [] }: SearchModal
                           </p>
                           <div className="flex flex-wrap gap-1.5 pt-1">
                             {post.tags.slice(0, 3).map((t) => (
-                              <span key={t} className="text-[11px] px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                              <span
+                                key={t}
+                                className="text-[11px] px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
+                              >
                                 #{t}
                               </span>
                             ))}
@@ -192,7 +247,7 @@ export default function SearchModal({ isOpen, onClose, posts = [] }: SearchModal
                     {filteredResults.projects.map((proj) => (
                       <button
                         key={proj.title}
-                        onClick={() => handleSelect('/projects')}
+                        onClick={() => handleSelect("/projects")}
                         className="w-full text-left p-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800/80 transition-colors flex items-start justify-between group"
                       >
                         <div className="space-y-1 pr-4">
@@ -211,7 +266,10 @@ export default function SearchModal({ isOpen, onClose, posts = [] }: SearchModal
                           </p>
                           <div className="flex flex-wrap gap-1.5 pt-1">
                             {proj.tech.slice(0, 4).map((tech) => (
-                              <span key={tech} className="text-[11px] px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                              <span
+                                key={tech}
+                                className="text-[11px] px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
+                              >
                                 {tech}
                               </span>
                             ))}
@@ -259,7 +317,9 @@ export default function SearchModal({ isOpen, onClose, posts = [] }: SearchModal
         {/* Footer info */}
         <div className="px-4 py-2.5 bg-neutral-50 dark:bg-neutral-950/60 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
           <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1"><CornerDownLeft className="w-3 h-3" /> Select</span>
+            <span className="flex items-center gap-1">
+              <CornerDownLeft className="w-3 h-3" /> Select
+            </span>
             <span>•</span>
             <span>ESC to close</span>
           </div>

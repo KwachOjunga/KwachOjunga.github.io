@@ -5,10 +5,17 @@ import Contact from "@/components/Contact";
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { getAllPosts } from "@/lib/blog";
-import { FolderGit2, BookOpen, ArrowRight, ExternalLink, Calendar, Clock } from "lucide-react";
+import {
+  FolderGit2,
+  BookOpen,
+  ArrowRight,
+  ExternalLink,
+  Calendar,
+  Clock,
+} from "lucide-react";
 
 export default function Home() {
-  const featuredProjects = projects.filter(p => p.featured).slice(0, 3);
+  const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
   const recentPosts = getAllPosts().slice(0, 2);
 
   return (
@@ -18,7 +25,10 @@ export default function Home() {
       <Skills />
 
       {/* Featured Projects Highlights Section */}
-      <section id="featured-work" className="py-20 px-4 max-w-4xl mx-auto border-t border-neutral-200/60 dark:border-neutral-800/60">
+      <section
+        id="featured-work"
+        className="py-20 px-4 max-w-4xl mx-auto border-t border-neutral-200/60 dark:border-neutral-800/60"
+      >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-400/15 text-amber-700 dark:text-yellow-400 border border-amber-400/30 mb-3">
@@ -57,7 +67,7 @@ export default function Home() {
               </div>
               <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800/60 flex items-center justify-between">
                 <div className="flex gap-1 text-[10px] text-neutral-500">
-                  {project.tech.slice(0, 2).join(' • ')}
+                  {project.tech.slice(0, 2).join(" • ")}
                 </div>
                 {project.link && (
                   <a
@@ -77,7 +87,10 @@ export default function Home() {
       </section>
 
       {/* Recent Blog Highlights Section */}
-      <section id="recent-articles" className="py-20 px-4 max-w-4xl mx-auto border-t border-neutral-200/60 dark:border-neutral-800/60">
+      <section
+        id="recent-articles"
+        className="py-20 px-4 max-w-4xl mx-auto border-t border-neutral-200/60 dark:border-neutral-800/60"
+      >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-400/15 text-amber-700 dark:text-yellow-400 border border-amber-400/30 mb-3">
@@ -120,7 +133,10 @@ export default function Home() {
               <div className="flex items-center justify-between pt-3 border-t border-neutral-100 dark:border-neutral-800/60">
                 <div className="flex gap-1.5">
                   {post.tags.slice(0, 2).map((t) => (
-                    <span key={t} className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                    <span
+                      key={t}
+                      className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
+                    >
                       #{t}
                     </span>
                   ))}
